@@ -41,7 +41,7 @@ public class Activity_Settings extends AppCompatActivity {
     ImageButton button_back;
     private FrameLayout adContainerView;
     private AdView adView;
-    Button btn1, btn2, btn3, btn4, btn5;
+    Button btn2, btn3, btn4;
     Spinner sp1, sp2;
     ConstraintLayout main;
     private boolean mSpinnerInitialized1 = true;
@@ -69,22 +69,18 @@ public class Activity_Settings extends AppCompatActivity {
         main = findViewById((R.id.main));
         sp1 = findViewById(R.id.spinner1);
         sp2 = findViewById(R.id.spinner2);
-        btn1 = findViewById(R.id.button1);
         btn2 = findViewById(R.id.button2);
         btn3 = findViewById(R.id.button3);
         btn4 = findViewById(R.id.button4);
-        btn5 = findViewById(R.id.button5);
 
         Class_App_theme app_theme = new Class_App_theme();
         
         int color1 = app_theme.Background_theme_change(getApplicationContext());
         main.setBackgroundResource(color1);
 
-        app_theme.Button_theme_change(getApplicationContext(), btn1);
         app_theme.Button_theme_change(getApplicationContext(), btn2);
         app_theme.Button_theme_change(getApplicationContext(), btn3);
         app_theme.Button_theme_change(getApplicationContext(), btn4);
-        app_theme.Button_theme_change(getApplicationContext(), btn5);
 
         int color = app_theme.Toolbar_theme_change(getApplicationContext());
         button_back = findViewById(R.id.button_back);
@@ -129,11 +125,9 @@ public class Activity_Settings extends AppCompatActivity {
                         int color = app_theme.Background_theme_change(getApplicationContext());
                         main.setBackgroundResource(color);
 
-                        app_theme.Button_theme_change(getApplicationContext(), btn1);
                         app_theme.Button_theme_change(getApplicationContext(), btn2);
                         app_theme.Button_theme_change(getApplicationContext(), btn3);
                         app_theme.Button_theme_change(getApplicationContext(), btn4);
-                        app_theme.Button_theme_change(getApplicationContext(), btn5);
 
                         int tclr = app_theme.Toolbar_theme_change(getApplicationContext());
                         bottom_toolbar = findViewById(R.id.bottom_toolbar);
@@ -185,11 +179,6 @@ public class Activity_Settings extends AppCompatActivity {
                 }
             });
 
-        btn1.setOnClickListener(v ->
-        {
-            Intent myIntent = new Intent(Activity_Settings.this, Activity_Information.class);
-            Activity_Settings.this.startActivity(myIntent);
-        });
         btn2.setOnClickListener(v ->
         {
             Intent myIntent = new Intent(Activity_Settings.this, Activity_Apps.class);
@@ -229,15 +218,6 @@ public class Activity_Settings extends AppCompatActivity {
         });
     }
 
-    public void button5_clicked(View view){
-        String error = getString(R.string.error);
-        Uri uri = Uri.parse("market://details?id=mivs.niewolnik_maryi_plus");
-        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        try { startActivity(myAppLinkToMarket);}
-        catch (ActivityNotFoundException e) { Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-        }
-
     private void loadAdaptiveBanner() {
         adView = new AdView(this);
         adView.setAdUnitId(BuildConfig.AD_BANNER_ID);
@@ -253,7 +233,6 @@ public class Activity_Settings extends AppCompatActivity {
     }
 
     private AdSize getAdSize() {
-        // Pobranie parametrów wyświetlacza w celu określenia szerokości okna reklamy
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
@@ -263,7 +242,6 @@ public class Activity_Settings extends AppCompatActivity {
 
         int adWidth = (int) (widthPixels / density);
 
-        // Zwrócenie zoptymalizowanego, adaptacyjnego rozmiaru bannera
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 

@@ -27,11 +27,12 @@ android {
     }
 
     defaultConfig {
+        manifestPlaceholders += mapOf()
         applicationId = "mivs.niewolnik_maryi"
         minSdk = 26
         targetSdk = 36
-        versionCode = 71
-        versionName = "1.4.71"
+        versionCode = 73
+        versionName = "1.4.73"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

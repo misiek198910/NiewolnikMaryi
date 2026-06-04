@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import mivs.niewolnik_maryi.BuildConfig;
 
 public class Activity_Main extends AppCompatActivity {
-    Button btn1; Button btn2; Button btn3; Button btn4; Button btn5, btn6;
+    Button btn1; Button btn2; Button btn3; Button btn4; Button btn5;
     ConstraintLayout main;
     private FrameLayout adContainerView;
     private AdView adView;
@@ -63,7 +63,6 @@ public class Activity_Main extends AppCompatActivity {
         btn3 = findViewById(R.id.button3);
         btn4 = findViewById(R.id.button4);
         btn5 = findViewById(R.id.button5);
-        btn6 = findViewById(R.id.button6);
 
         btn1.setOnClickListener(v -> {
             Intent myIntent = new Intent(Activity_Main.this, Activity_Traktat.class);
@@ -90,10 +89,6 @@ public class Activity_Main extends AppCompatActivity {
             Activity_Main.this.startActivity(myIntent);
             finish();
         });
-        btn6.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://buycoffee.to/mivs/MojaParafia"));
-            startActivity(browserIntent);
-        });
 
 
         Class_App_theme app_theme = new Class_App_theme();
@@ -107,7 +102,6 @@ public class Activity_Main extends AppCompatActivity {
         app_theme.Button_theme_change(getApplicationContext(), btn3);
         app_theme.Button_theme_change(getApplicationContext(), btn4);
         app_theme.Button_theme_change(getApplicationContext(), btn5);
-        app_theme.Button_theme_change(getApplicationContext(), btn6);
 
         Class_Prefs pref = new Class_Prefs();
         String iso;

@@ -7,11 +7,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -24,9 +27,6 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
 import mivs.niewolnik_maryi.BuildConfig;
 
 public class Activity_Oredzia extends AppCompatActivity {
@@ -36,9 +36,10 @@ public class Activity_Oredzia extends AppCompatActivity {
     TextView toolbar_title;
     ImageButton button_back;
     Spinner sp1;
-    TextView textview_content;
+    WebView webview_content;
     ConstraintLayout main;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,12 @@ public class Activity_Oredzia extends AppCompatActivity {
 
         main = findViewById(R.id.main);
         sp1 = findViewById(R.id.spinner1);
+        webview_content = findViewById(R.id.webView_content);
+
+        android.webkit.WebSettings webSettings = webview_content.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webview_content.setWebViewClient(new android.webkit.WebViewClient());
 
         Class_App_theme app_theme = new Class_App_theme();
 
@@ -72,62 +79,35 @@ public class Activity_Oredzia extends AppCompatActivity {
         bottom_toolbar.setBackgroundColor(color);
         button_back.setOnClickListener( v -> finish());
 
-        int lastpostion = sp1.getCount() -1;
+        String[] spinnerYearsArray = getResources().getStringArray(R.array.spinner5_items);
+
+        android.widget.ArrayAdapter<String> adapter = new android.widget.ArrayAdapter<>(
+                this,
+                R.layout.spinner_item,
+                spinnerYearsArray
+        );
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        sp1.setAdapter(adapter);
+
+        int lastpostion = sp1.getCount() - 1;
         sp1.setSelection(lastpostion);
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                textview_content = findViewById(R.id.textView_content);
+                String selectedYear = sp1.getSelectedItem().toString();
+                
+                String targetUrl = "https://www.medjugorje.ws/pl/messages/" + selectedYear + "/";
 
-                String itemstring = (String)sp1.getSelectedItem();
-
-                String fileName = "Or_" + itemstring;
-                String partEN = "_en.txt";
-                String partPL = "_pl.txt";
-                String file2;
-
-                Locale current = getResources().getConfiguration().getLocales().get(0);
-                String localeIso = current.getDisplayName();
-
-                if (localeIso.equals("polski")) { file2 = fileName+partPL;}
-                else {file2 = fileName+partEN;}
-
-                String content = LoadData(file2);
-
-                textview_content.setText(Html.fromHtml(content , Html.FROM_HTML_MODE_COMPACT));
-
+                webview_content.loadUrl(targetUrl);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
-    public String LoadData(String inFile)
-    {
-        String tContents = "";
-        try
-        {
-            InputStream stream = getAssets().open(inFile);
 
-            int size = stream.available();
-            byte[] buffer = new byte[size];
-            //noinspection ResultOfMethodCallIgnored
-            stream.read(buffer);
-            stream.close();
-            tContents = new String(buffer);
-        }
-        catch (IOException e) {
-            // Handle exceptions here
-        }
-
-        return tContents;
-
-    }
     private void loadAdaptiveBanner() {
         adView = new AdView(this);
         adView.setAdUnitId(BuildConfig.AD_BANNER_ID);
@@ -143,7 +123,6 @@ public class Activity_Oredzia extends AppCompatActivity {
     }
 
     private AdSize getAdSize() {
-        // Pobranie parametrów wyświetlacza w celu określenia szerokości okna reklamy
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
@@ -153,7 +132,6 @@ public class Activity_Oredzia extends AppCompatActivity {
 
         int adWidth = (int) (widthPixels / density);
 
-        // Zwrócenie zoptymalizowanego, adaptacyjnego rozmiaru bannera
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 

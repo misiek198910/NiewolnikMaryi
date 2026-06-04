@@ -58,15 +58,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button1"
-                style="@style/button_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_button1"
-                android:textSize="@dimen/medium"
-                tools:ignore="contentDescription" />
-
-            <Button
                 android:id="@+id/button2"
                 style="@style/button_style"
                 android:layout_width="match_parent"
@@ -90,16 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/kofi_text3"
-                android:textSize="@dimen/medium"
-                tools:ignore="contentDescription" />
-
-            <Button
-                android:id="@+id/button5"
-                style="@style/button_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="button5_clicked"
-                android:text="@string/full"
                 android:textSize="@dimen/medium"
                 tools:ignore="contentDescription" />
 

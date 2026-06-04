@@ -73,16 +73,6 @@
             android:text="@string/main_button5"
             android:textSize="@dimen/medium" />
 
-        <Button
-            android:id="@+id/button6"
-            style="@style/button_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/yellow"
-            android:text="@string/main_button6"
-            android:textSize="@dimen/medium" />
-
 
     </LinearLayout>
 

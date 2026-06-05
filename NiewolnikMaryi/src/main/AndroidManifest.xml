@@ -39,9 +39,6 @@
             android:name=".Activity_Modlitwy"
             android:exported="false" />
         <activity
-            android:name=".Activity_kofi"
-            android:exported="false" />
-        <activity
             android:name=".Activity_Traktat"
             android:exported="false" />
         <activity

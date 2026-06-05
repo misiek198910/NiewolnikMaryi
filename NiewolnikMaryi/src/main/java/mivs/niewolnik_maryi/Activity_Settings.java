@@ -195,10 +195,10 @@ public class Activity_Settings extends AppCompatActivity {
                 Toast.makeText(this, error, Toast.LENGTH_LONG).show();
             }
         });
-        btn4.setOnClickListener(v ->
-        {
-            Intent myIntent = new Intent(this, Activity_kofi.class);
-            this.startActivity(myIntent);
+        btn4.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://ko-fi.com/michals"));
+            v.getContext().startActivity(intent);
         });
 
         Class_Prefs pref = new Class_Prefs();

@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,6 +31,13 @@ import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
 import com.google.android.ump.UserMessagingPlatform;
 
+// Importy dla In-App Updates (Java)
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -40,6 +50,8 @@ public class Activity_Main extends AppCompatActivity {
     private AdView adView;
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     ConsentInformation consentInformation;
+    private AppUpdateManager appUpdateManager;
+    private ActivityResultLauncher<IntentSenderRequest> updateLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,17 @@ public class Activity_Main extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        updateLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                result -> {
+                    if (result.getResultCode() != RESULT_OK) {
+                        Log.w("InAppUpdate", "Aktualizacja anulowana lub nie powiodła się. Kod: " + result.getResultCode());
+                    }
+                }
+        );
+
+        checkForUpdate();
 
         MobileAds.initialize(this, initializationStatus -> {});
 
@@ -70,26 +93,21 @@ public class Activity_Main extends AppCompatActivity {
         });
         btn2.setOnClickListener(v -> {
             Intent myIntent = new Intent(Activity_Main.this, Activity_Modlitwy.class);
-            // myIntent.putExtra("key", value); //Optional parameters
             Activity_Main.this.startActivity(myIntent);
         });
         btn3.setOnClickListener(v -> {
             Intent myIntent = new Intent(Activity_Main.this, Activity_Nowenny.class);
-            // myIntent.putExtra("key", value); //Optional parameters
             Activity_Main.this.startActivity(myIntent);
         });
         btn4.setOnClickListener(v -> {
             Intent myIntent = new Intent(Activity_Main.this, Activity_Oredzia.class);
-            // myIntent.putExtra("key", value); //Optional parameters
             Activity_Main.this.startActivity(myIntent);
         });
         btn5.setOnClickListener(v -> {
             Intent myIntent = new Intent(Activity_Main.this, Activity_Settings.class);
-            // myIntent.putExtra("key", value); //Optional parameters
             Activity_Main.this.startActivity(myIntent);
             finish();
         });
-
 
         Class_App_theme app_theme = new Class_App_theme();
         int bclr = app_theme.Background_theme_change(getApplicationContext());
@@ -109,15 +127,29 @@ public class Activity_Main extends AppCompatActivity {
 
         if (item == 0) { iso = "Pl";} else {iso = "En";}
 
-        LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(iso);  // or use "xx-YY"
+        LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(iso);
         AppCompatDelegate.setApplicationLocales(appLocale);
 
         setupMobileAdsSdk();
         rateApp();
     }
+    private void checkForUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+
+                appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        updateLauncher,
+                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
+                );
+            }
+        });
+    }
+
     public void setupMobileAdsSdk() {
-        // Set tag for under age of consent. false means users are not under age
-        // of consent.
         ConsentRequestParameters params = new ConsentRequestParameters
                 .Builder()
                 .setTagForUnderAgeOfConsent(false)
@@ -131,27 +163,21 @@ public class Activity_Main extends AppCompatActivity {
                         this,
                         loadAndShowError -> {
                             if (loadAndShowError != null) {
-                                // Consent gathering failed.
                                 Log.w(TAG, String.format("%s: %s",
                                         loadAndShowError.getErrorCode(),
                                         loadAndShowError.getMessage()));
                             }
-
-                            // Consent has been gathered.
                             if (consentInformation.canRequestAds()) {
                                 initializeMobileAdsSdk();
                             }
                         }
                 ),
                 requestConsentError -> {
-                    // Consent gathering failed.
                     Log.w(TAG, String.format("%s: %s",
                             requestConsentError.getErrorCode(),
                             requestConsentError.getMessage()));
                 });
-        // Check if you can initialize the Google Mobile Ads SDK in parallel
-        // while checking for new consent information. Consent obtained in
-        // the previous session can be used to request ads.
+
         if (consentInformation.canRequestAds()) {
             initializeMobileAdsSdk();
         }
@@ -181,8 +207,6 @@ public class Activity_Main extends AppCompatActivity {
 
             pref.SavePrefString(getApplicationContext(),"firststart_data","true");
         }
-
-
     }
 
     public void rateApp()
@@ -221,7 +245,6 @@ public class Activity_Main extends AppCompatActivity {
     }
 
     private AdSize getAdSize() {
-        // Pobranie parametrów wyświetlacza w celu określenia szerokości okna reklamy
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
@@ -231,7 +254,6 @@ public class Activity_Main extends AppCompatActivity {
 
         int adWidth = (int) (widthPixels / density);
 
-        // Zwrócenie zoptymalizowanego, adaptacyjnego rozmiaru bannera
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
@@ -248,6 +270,18 @@ public class Activity_Main extends AppCompatActivity {
         super.onResume();
         if (adView != null) {
             adView.resume();
+        }
+
+        if (appUpdateManager != null) {
+            appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            updateLauncher,
+                            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
+                    );
+                }
+            });
         }
     }
 

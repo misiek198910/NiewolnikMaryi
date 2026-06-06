@@ -76,6 +76,8 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.play:app-update:2.1.0")
+
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")

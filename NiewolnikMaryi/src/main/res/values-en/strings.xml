@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Niewolnik Maryi</string>
-    <string name="admob_app_id">ca-app-pub-8612826840770530~1488152896</string>
-    <string name="admob_interstitial_id">ca-app-pub-8612826840770530/6762686648</string>
-    <string name="banner_ad_unit_id">ca-app-pub-8612826840770530/1409968130</string>
 
     <string name="main_button1">Treaty</string>
     <string name="main_button2">Prayers</string>
     <string name="main_button3">Novenas</string>
     <string name="main_button4">Messages</string>
     <string name="main_button5">Settings</string>
-    <string name="main_button6">Support the project ↗</string>
 
     <string name="main_textView_text">Victory, when it comes, will come through Mary - Cardinal August Hlond</string>
 
@@ -23,22 +19,16 @@
     <string name="traktat_button7">Deadlines</string>
 
     <string name="settings_textView1">App Theme</string>
-    <string name="settings_textView2">Text</string>
     <string name="settings_textView3">Language selection</string>
 
 
     <string name="settings_button1">Information</string>
     <string name="settings_button2">Other applications</string>
     <string name="settings_button3">Rate app</string>
-    <string name="settings_button4">Donate</string>
 
-    <string name="kofi_text1">If you enjoy using my Android app and would like to show your support, you can buy me a virtual coffee through Ko-fi. Every coffee is a big motivation for me to keep improving, fixing bugs, and adding new features. Thank you for your support – even the smallest gesture makes a difference!</string>
-    <string name="kofi_text2">Click to go to the website</string>
     <string name="kofi_text3">Buy coffe</string>
 
     <string name="error">Unable to find market app</string>
-    <string name="help_text">Hi. Please help me develop my applications by watching a short advertisement. Thank you. I am an unfaithful sinner…</string>
-    <string name="help_button">Donate</string>
     <string name="Twelfth_head">12 days world renunciation</string>
     <string name="seven_head_1">Part One: Knowing Yourself</string>
     <string name="seven_head_2">Part two: Getting to know the Mother of God</string>
@@ -78,11 +68,6 @@
         <item>Orange</item>
         <item>Pink</item>
         <item>Rose</item>
-    </string-array>
-
-    <string-array name="spinner2_items">
-        <item>Bold</item>
-        <item>Standard</item>
     </string-array>
 
     <string-array name="spinner3_items">
@@ -185,14 +170,9 @@
         <item>Novena to Our Lady of Mercy</item>
     </string-array>
     <string name="oredzia_rok">Select year of messages:</string>
-    <string name="about">About me</string>
-    <string name="privacy">Privacy and policy</string>
-    <string name="close">Close</string>
-    <string name="full">Turn Ads off</string>
     <string name="information_tekst1">Stay updated! Go to the blog to see the latest news about my applications.</string>
     <string name="information_tekst2">Go to the blog</string>
     <string name="Move">Move to change text size</string>
-    <string name="show">Don\'t show again</string>
 
     <string name="rate_info1">Hello. Your opinion is very important to me. Would you like to rate the app?</string>
     <string name="rate_info2">Rate</string>

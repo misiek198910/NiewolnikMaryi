@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Niewolnik Maryi</string>
-    <string name="admob_app_id">ca-app-pub-8612826840770530~1488152896</string>
-    <string name="admob_interstitial_id">ca-app-pub-8612826840770530/6762686648</string>
-    <string name="banner_ad_unit_id">ca-app-pub-8612826840770530/1409968130</string>
 
     <string name="main_button1">Traktat</string>
     <string name="main_button2">Modlitwy</string>
     <string name="main_button3">Nowenny</string>
     <string name="main_button4">Orędzia</string>
     <string name="main_button5">Ustawienia</string>
-    <string name="main_button6">Wspomóż projekt ↗</string>
 
     <string name="main_textView_text">Zwycieństwo gdy przyjdzie, przyjdzie przez Maryję - Kardynał August Hlond</string>
 
@@ -23,21 +19,15 @@
     <string name="traktat_button7">Terminy</string>
 
     <string name="settings_textView1">Motyw aplikacji</string>
-    <string name="settings_textView2">Tekstu</string>
     <string name="settings_textView3">Wybór języka</string>
 
     <string name="settings_button1">Informacje</string>
     <string name="settings_button2">Inne aplikacje</string>
     <string name="settings_button3">Oceń aplikacje</string>
-    <string name="settings_button4">Wspomóż</string>
 
-    <string name="kofi_text1">Jeśli podoba Ci się moja aplikacja na Androida i chcesz okazać wsparcie, możesz postawić mi wirtualną kawę przez Ko-fi. Każda kawa to dla mnie ogromna motywacja do dalszego rozwoju, poprawek i dodawania nowych funkcji. Dziękuję za Twoje wsparcie – nawet najmniejszy gest robi różnicę! </string>
-    <string name="kofi_text2">Kliknij aby przejść do witryny</string>
     <string name="kofi_text3">Postaw kawę</string>
 
     <string name="error">Nie można odnaleść aplikacji Sklep Google Play</string>
-    <string name="help_text">Cześć. Proszę o pomoc w rozwijaniu moich aplikacji po przez obejrzenie krótkiej reklamy. Dziękuję. Ja grzesznik niewierny …</string>
-    <string name="help_button">Wspomóż</string>
     <string name="Twelfth_head">Okres 12 dni wyrzeczenia się świata</string>
     <string name="seven_head_1">Część pierwsza: Poznanie samego siebie</string>
     <string name="seven_head_2">Część druga: Poznanie Matki Bożej</string>
@@ -81,11 +71,6 @@
         <item>Pomarańczowy</item>
         <item>Różowy</item>
         <item>Różany</item>
-    </string-array>
-
-    <string-array name="spinner2_items">
-        <item>Pogrubiony</item>
-        <item>Standardowy</item>
     </string-array>
 
     <string-array name="spinner3_items">
@@ -189,14 +174,9 @@
     </string-array>
 
     <string name="oredzia_rok">Wybierz rok orędzi:</string>
-    <string name="about">O mnie</string>
-    <string name="privacy">Polityka prywatności</string>
-    <string name="close">Zamknij</string>
-    <string name="full">Wyłącz reklamy</string>
     <string name="information_tekst1">Bądź na bieżąco! Przejdź na bloga, aby zobaczyć najnowsze newsy o moich aplikacjach.</string>
     <string name="information_tekst2">Przejdż do bloga</string>
     <string name="Move">Przesuń aby zmienić rozmiar tekstu</string>
-    <string name="show">Nie pokazuj ponownie</string>
 
     <string name="rate_info1">Witaj. Twoja opinia jest dla mnie bardzo ważna. Czy chciałbys ocenić aplikację?</string>
     <string name="rate_info2">Oceń</string>
